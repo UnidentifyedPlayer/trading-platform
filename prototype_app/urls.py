@@ -3,7 +3,7 @@ from prototype_app import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'contractor', views.ContractorListViewSet, basename="contractor")
+router.register(r'contractor', views.ContractorViewSet, basename="contractor")
 router.register(r'country', views.CountryListViewSet, basename="country")
 
 # Wire up our API using automatic URL routing.

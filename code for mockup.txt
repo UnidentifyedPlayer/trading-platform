@@ -15,5 +15,5 @@ c = q.choice_set.create(choice_text='Just hacking again', votes=0)
 
 from prototype_app.models import Contractor
 a = Contractor.objects.filter(pk=141272600021)
-a= Contractor(id=141272600021,object_id=141272600021, country=289713190000,
+a= Contractor(object_id=141272600021, country=289713190000,
 lbl='ООО "Производственно-коммерческое предприятие " УралМет", г. Ижевск')
