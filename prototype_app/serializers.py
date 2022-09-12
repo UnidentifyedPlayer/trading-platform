@@ -30,8 +30,8 @@ class CountryListSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ContractorListSerializer(serializers.HyperlinkedModelSerializer):
-    telephone = serializers.CharField(write_only=True, required=False)
-    id = serializers.ReadOnlyField()
+    #telephone = serializers.CharField(write_only=True, required=False)
+    #id = serializers.ReadOnlyField()
     #country = CountryListSerializer(many=False, read_only=True)
     country_info = CountryListSerializer(source='country', read_only=True)
 
@@ -48,8 +48,32 @@ class ContractorListSerializer(serializers.HyperlinkedModelSerializer):
             'oe_start_date', 'scntr_num', 'credit_limit',
             'country', 'country_info', 'telephone'
                   ]
-        extra_kwargs = {'country': {'write_only': True}}
+        extra_kwargs = {'country': {'write_only': True},
+                        'telephone': {'write_only': True, 'required': False},
+                        'id': {'read_only': True}}
 
+class ContractorInstanceSerializer(serializers.HyperlinkedModelSerializer):
+    #telephone = serializers.CharField(write_only=True, required=False)
+    #id = serializers.ReadOnlyField()
+    #country = CountryListSerializer(many=False, read_only=True)
+    country_info = CountryListSerializer(source='country', read_only=True)
+
+    @staticmethod
+    def setup_eager_loading(queryset):
+        """ Perform necessary eager loading of data. """
+        queryset = queryset.prefetch_related('country')
+        return queryset
+
+    class Meta:
+        model = Contractor
+        fields = [
+            'id', 'lbl', 'name_full', 'address', 'inn', 'kpp', 'list_work',
+            'oe_start_date', 'scntr_num', 'credit_limit',
+            'country', 'country_info', 'telephone'
+                  ]
+        extra_kwargs = {'country': {'write_only': True},
+                        'telephone': {'write_only': True, 'required': False},
+                        'id': {'read_only': True}}
 
 
 

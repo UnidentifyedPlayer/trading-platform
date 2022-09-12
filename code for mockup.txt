@@ -17,3 +17,17 @@ from prototype_app.models import Contractor
 a = Contractor.objects.filter(pk=141272600021)
 a= Contractor(object_id=141272600021, country=289713190000,
 lbl='ООО "Производственно-коммерческое предприятие " УралМет", г. Ижевск')
+
+#
+from django.db.models import Q
+from prototype_app.models import Contractor, Country
+kwargs = {"lbl__iexact" :"Ромашка", "lbl__contains":"12"}
+q = Q(**kwargs)
+q.negate()
+a = Contractor.objects.filter(q).limit(20)
+a = Contractor.objects.filter(q)[:20]
+
+a = ContractorFullData.objects.get(id=271244)
+a.fl_egryul = "D:\\Dev\\Practice\\Prototype\\files\\271244\\egryul\\морской_лев.png"
+
+
